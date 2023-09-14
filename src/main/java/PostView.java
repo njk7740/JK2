@@ -2,6 +2,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PostView {
+    Scanner scanner = new Scanner(System.in);
+
     public void printSimple(PostData post) {
         System.out.println("===============");
         System.out.println("번호 : " + post.getNumber());
@@ -61,14 +63,14 @@ public class PostView {
     }
 
     public String inputString() {
-        Scanner scanner = new Scanner(System.in);
+
         return scanner.nextLine();
     }
 
     public int inputNumber() {
         Scanner scanner = new Scanner(System.in);
         int number = 0;
-        while(true) {
+        while (true) {
             try {
                 number = scanner.nextInt();
                 scanner.nextLine();
@@ -79,5 +81,26 @@ public class PostView {
             }
         }
         return number;
+    }
+
+    public void showStart() {
+        System.out.println("****************************");
+        System.out.println("*   Text Board (by.재경)   *");
+        System.out.println("****************************");
+    }
+
+    public String inputID() {
+        System.out.print("아이디를 입력해주세요 : ");
+        return scanner.nextLine();
+    }
+
+    public String inputPW() {
+        System.out.print("비밀번호를 입력해주세요 : ");
+        return scanner.nextLine();
+    }
+
+    public String inputName() {
+        System.out.print("닉네임을 입력해주세요 : ");
+        return scanner.nextLine();
     }
 }

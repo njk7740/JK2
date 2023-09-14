@@ -7,7 +7,8 @@ public class CommentData {
         this.time = Util.getNowTime();
     }
 
-    CommentData() {}
+    CommentData() {
+    }
 
     public String getText() {
         return text;

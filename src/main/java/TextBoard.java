@@ -1,8 +1,10 @@
 public class TextBoard {
 
-    PostRepository postRepository = new PostRepository();
+    PostList postList = new PostList();
     PostControler postControler = new PostControler();
     PostView postView = new PostView();
+    UserControler userControler = new UserControler();
+
     void Run() {
         // test
         {
@@ -10,6 +12,7 @@ public class TextBoard {
             postControler.addPost("두번째 게시물", "테스트용입니다");
             postControler.addPost("세번째 게시물", "테스트용입니다");
         }
+        postView.showStart();
 
         while (true) {
             System.out.print("명령어를 입력해주세요 : ");
@@ -24,8 +27,8 @@ public class TextBoard {
             else if (menu.equals("delete")) postControler.deletePost();
             else if (menu.equals("detail")) postControler.printPostDetail();
             else if (menu.equals("search")) postControler.searchPost();
+            else if (menu.equals("signup")) userControler.signup();
 
         }
     }
-
 }

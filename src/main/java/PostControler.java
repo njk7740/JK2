@@ -1,6 +1,6 @@
 public class PostControler {
 
-    PostRepository postRepository = new PostRepository();
+    PostList postList = new PostList();
     PostView postView = new PostView();
 
     public void searchPost() {
@@ -11,7 +11,7 @@ public class PostControler {
 
     public boolean printPostsByKey(String key) {
         boolean success = false;
-        for (PostData post : postRepository.posts)
+        for (PostData post : postList.posts)
             if (post.getTitle().contains(key)) {
                 postView.printSimple(post);
                 success = true;
@@ -20,7 +20,7 @@ public class PostControler {
     }
 
     public void printComments(int postIndex) {
-        for (CommentData comment : postRepository.posts.get(postIndex).getComments())
+        for (CommentData comment : postList.posts.get(postIndex).getComments())
             postView.printComment(comment);
     }
 
@@ -28,14 +28,13 @@ public class PostControler {
         System.out.print("상세보기할 게시물 번호 : ");
         int idx = getPostIdx(postView.inputNumber());
         boolean run = true;
-        while(run) {
+        while (run) {
             if (idx == -1) {
                 postView.printNoPost();
                 run = false;
-            }
-            else {
-                postRepository.posts.get(idx).setViews(postRepository.posts.get(idx).getViews() + 1);
-                postView.printDetail(postRepository.posts.get(idx));
+            } else {
+                postList.posts.get(idx).setViews(postList.posts.get(idx).getViews() + 1);
+                postView.printDetail(postList.posts.get(idx));
                 printComments(idx);
                 run = printDetailMenu(idx);
             }
@@ -45,7 +44,7 @@ public class PostControler {
     public boolean printDetailMenu(int postIdx) {
         postView.showDetailMenu();
         int inputMenu = postView.inputNumber();
-        if (inputMenu == 1) postRepository.setComment(postIdx);
+        if (inputMenu == 1) postList.setComment(postIdx);
         else if (inputMenu == 2) ; // todo 추천
         else if (inputMenu == 3) ; // todo 수정
         else if (inputMenu == 4) ; // todo 삭제
@@ -57,8 +56,8 @@ public class PostControler {
     }
 
     public int getPostIdx(int postNum) {
-        for (int i = 0; i < postRepository.posts.size(); i++)
-            if (postRepository.posts.get(i).getNumber() == postNum)
+        for (int i = 0; i < postList.posts.size(); i++)
+            if (postList.posts.get(i).getNumber() == postNum)
                 return i;
         return -1;
     }
@@ -70,7 +69,7 @@ public class PostControler {
 
         if (idx == -1) postView.printNoPost();
         else {
-            postRepository.posts.remove(idx);
+            postList.posts.remove(idx);
             System.out.println(number + "번 게시물이 삭제되었습니다.");
         }
     }
@@ -82,9 +81,9 @@ public class PostControler {
 
         if (idx == -1) postView.printNoPost();
         else {
-            postRepository.posts.get(idx).setTitle(postView.getInputTitle());
-            postRepository.posts.get(idx).setDetail(postView.getInputDetail());
-            postRepository.posts.get(idx).setDate(Util.getNowTime());
+            postList.posts.get(idx).setTitle(postView.getInputTitle());
+            postList.posts.get(idx).setDetail(postView.getInputDetail());
+            postList.posts.get(idx).setDate(Util.getNowTime());
             System.out.println(number + "번 게시물이 수정되었습니다.");
         }
     }
@@ -92,13 +91,13 @@ public class PostControler {
     public void addPost(String title, String detail) {
         PostData post = new PostData(title, detail);
         setPostNumber(post);
-        postRepository.posts.add(post);
+        postList.posts.add(post);
     }
 
     public void setPostNumber(PostData post) {
-        int maxIndex = postRepository.posts.size() - 1;
-        if (postRepository.posts.isEmpty()) post.setNumber(1);
-        else post.setNumber(postRepository.posts.get(maxIndex).getNumber() + 1);
+        int maxIndex = postList.posts.size() - 1;
+        if (postList.posts.isEmpty()) post.setNumber(1);
+        else post.setNumber(postList.posts.get(maxIndex).getNumber() + 1);
     }
 
     public void addPosts() {
@@ -109,8 +108,8 @@ public class PostControler {
     }
 
     public void printPostList() {
-        if (postRepository.posts.isEmpty()) postView.printEmptyPost();
-        else for (PostData post : postRepository.posts)
+        if (postList.posts.isEmpty()) postView.printEmptyPost();
+        else for (PostData post : postList.posts)
             postView.printSimple(post);
     }
 

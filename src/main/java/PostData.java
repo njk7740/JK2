@@ -63,6 +63,7 @@ public class PostData {
     public ArrayList<CommentData> getComments() {
         return comments;
     }
+
     public void setComments(String text) {
         CommentData comment = new CommentData(text);
         comments.add(comment);

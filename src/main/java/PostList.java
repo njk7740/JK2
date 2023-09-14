@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class PostRepository {
+public class PostList {
     ArrayList<PostData> posts = new ArrayList<>();
     PostView postView = new PostView();
 
