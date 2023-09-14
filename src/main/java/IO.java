@@ -1,30 +1,34 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class PostView {
+public class IO {
     Scanner scanner = new Scanner(System.in);
 
+    public void drawLine() {
+        System.out.println("===================");
+    }
+
     public void printSimple(PostData post) {
-        System.out.println("===============");
+        drawLine();
         System.out.println("번호 : " + post.getNumber());
         System.out.println("제목 : " + post.getTitle());
-        System.out.println("===============");
+        drawLine();
     }
 
     public void printDetail(PostData post) {
-        System.out.println("===============");
+        drawLine();
         System.out.println("번호 : " + post.getNumber());
         System.out.println("제목 : " + post.getTitle());
         System.out.println("내용 : " + post.getDetail());
         System.out.println("등록날짜 : " + post.getDate());
         System.out.println("조회수 : " + post.getViews());
-        System.out.println("===== 댓글 =====");
+        System.out.println("======= 댓글 =======");
     }
 
     public void printComment(CommentData comment) {
         System.out.println("댓글 내용 : " + comment.getText());
         System.out.println("작성일 : " + comment.getTime());
-        System.out.println("===============");
+        drawLine();
     }
 
     public void printEmptyPost() {
@@ -90,17 +94,17 @@ public class PostView {
     }
 
     public String inputID() {
-        System.out.print("아이디를 입력해주세요 : ");
+        System.out.print("사용하실 아이디를 입력해주세요 : ");
         return scanner.nextLine();
     }
 
     public String inputPW() {
-        System.out.print("비밀번호를 입력해주세요 : ");
+        System.out.print("사용하실 비밀번호를 입력해주세요 : ");
         return scanner.nextLine();
     }
 
     public String inputName() {
-        System.out.print("닉네임을 입력해주세요 : ");
+        System.out.print("사용하실 닉네임을 입력해주세요 : ");
         return scanner.nextLine();
     }
 }

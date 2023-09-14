@@ -1,16 +1,21 @@
 public class UserControler {
     UserList userList = new UserList();
-    PostView postView = new PostView();
+    IO io = new IO();
 
     public void signup() {
-        String ID = postView.inputID();
+        System.out.println("=== 회원가입을 진행합니다 ===");
+        String ID = io.inputID();
         if (userList.exist(ID)) {
             System.out.println("해당 ID가 존재합니다.");
         } else {
-            String PW = postView.inputPW();
-            String Name = postView.inputName();
+            String PW = io.inputPW();
+            String Name = io.inputName();
             userList.add(ID, PW, Name);
-            System.out.println("회원가입이 완료되었습니다.");
+            System.out.println("=== 회원가입이 완료되었습니다 ===");
         }
+    }
+
+    public void login() {
+        // todo 로그인 구현
     }
 }

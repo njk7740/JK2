@@ -1,19 +1,19 @@
 public class PostControler {
 
     PostList postList = new PostList();
-    PostView postView = new PostView();
+    IO io = new IO();
 
     public void searchPost() {
         System.out.print("검색 키워드를 입력해주세요 : ");
-        boolean work = printPostsByKey(postView.inputString());
-        if (!work) postView.printNoSearchPost();
+        boolean work = printPostsByKey(io.inputString());
+        if (!work) io.printNoSearchPost();
     }
 
     public boolean printPostsByKey(String key) {
         boolean success = false;
         for (PostData post : postList.posts)
             if (post.getTitle().contains(key)) {
-                postView.printSimple(post);
+                io.printSimple(post);
                 success = true;
             }
         return success;
@@ -21,20 +21,20 @@ public class PostControler {
 
     public void printComments(int postIndex) {
         for (CommentData comment : postList.posts.get(postIndex).getComments())
-            postView.printComment(comment);
+            io.printComment(comment);
     }
 
     public void printPostDetail() {
         System.out.print("상세보기할 게시물 번호 : ");
-        int idx = getPostIdx(postView.inputNumber());
+        int idx = getPostIdx(io.inputNumber());
         boolean run = true;
         while (run) {
             if (idx == -1) {
-                postView.printNoPost();
+                io.printNoPost();
                 run = false;
             } else {
                 postList.posts.get(idx).setViews(postList.posts.get(idx).getViews() + 1);
-                postView.printDetail(postList.posts.get(idx));
+                io.printDetail(postList.posts.get(idx));
                 printComments(idx);
                 run = printDetailMenu(idx);
             }
@@ -42,8 +42,8 @@ public class PostControler {
     }
 
     public boolean printDetailMenu(int postIdx) {
-        postView.showDetailMenu();
-        int inputMenu = postView.inputNumber();
+        io.showDetailMenu();
+        int inputMenu = io.inputNumber();
         if (inputMenu == 1) postList.setComment(postIdx);
         else if (inputMenu == 2) ; // todo 추천
         else if (inputMenu == 3) ; // todo 수정
@@ -64,10 +64,10 @@ public class PostControler {
 
     public void deletePost() {
         System.out.print("삭제할 게시물 번호 : ");
-        int number = postView.inputNumber();
+        int number = io.inputNumber();
         int idx = getPostIdx(number);
 
-        if (idx == -1) postView.printNoPost();
+        if (idx == -1) io.printNoPost();
         else {
             postList.posts.remove(idx);
             System.out.println(number + "번 게시물이 삭제되었습니다.");
@@ -76,13 +76,13 @@ public class PostControler {
 
     public void updatePost() {
         System.out.print("수정할 게시물 번호 : ");
-        int number = postView.inputNumber();
+        int number = io.inputNumber();
         int idx = getPostIdx(number);
 
-        if (idx == -1) postView.printNoPost();
+        if (idx == -1) io.printNoPost();
         else {
-            postList.posts.get(idx).setTitle(postView.getInputTitle());
-            postList.posts.get(idx).setDetail(postView.getInputDetail());
+            postList.posts.get(idx).setTitle(io.getInputTitle());
+            postList.posts.get(idx).setDetail(io.getInputDetail());
             postList.posts.get(idx).setDate(Util.getNowTime());
             System.out.println(number + "번 게시물이 수정되었습니다.");
         }
@@ -101,16 +101,16 @@ public class PostControler {
     }
 
     public void addPosts() {
-        String title = postView.getInputTitle();
-        String detail = postView.getInputDetail();
+        String title = io.getInputTitle();
+        String detail = io.getInputDetail();
         addPost(title, detail);
         System.out.println("게시물이 등록되었습니다.");
     }
 
     public void printPostList() {
-        if (postList.posts.isEmpty()) postView.printEmptyPost();
+        if (postList.posts.isEmpty()) io.printEmptyPost();
         else for (PostData post : postList.posts)
-            postView.printSimple(post);
+            io.printSimple(post);
     }
 
 
