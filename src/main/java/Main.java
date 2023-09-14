@@ -50,36 +50,38 @@ public class Main {
         return success;
     }
 
-    public static void printComments(int postIndex){
-        for(CommentData comment : posts.get(postIndex).getComments())
+    public static void printComments(int postIndex) {
+        for (CommentData comment : posts.get(postIndex).getComments())
             PostView.printComment(comment);
     }
+
     public static void printPostDetail() {
         System.out.print("상세보기할 게시물 번호 : ");
         int idx = getPostIdx(inputNumber());
-
-        if (idx == -1) PostView.printNoPost();
-        else {
-            posts.get(idx).setViews(posts.get(idx).getViews() + 1);
-            PostView.printDetail(posts.get(idx));
-            printComments(idx);
-            printDetailMenu(idx);
+        boolean run = true;
+        while(run) {
+            if (idx == -1) PostView.printNoPost();
+            else {
+                posts.get(idx).setViews(posts.get(idx).getViews() + 1);
+                PostView.printDetail(posts.get(idx));
+                printComments(idx);
+                run = printDetailMenu(idx);
+            }
         }
     }
 
-    public static void printDetailMenu(int postIdx) {
-        while(true) {
+    public static boolean printDetailMenu(int postIdx) {
         PostView.showDetailMenu();
         int inputMenu = inputNumber();
-            if (inputMenu == 1) setComment(postIdx);
-            else if (inputMenu == 2) ; // todo 추천
-            else if (inputMenu == 3) ; // todo 수정
-            else if (inputMenu == 4) ; // todo 삭제
-            else if (inputMenu == 5) {
-                printPostList();
-                return;
-            }
+        if (inputMenu == 1) setComment(postIdx);
+        else if (inputMenu == 2) ; // todo 추천
+        else if (inputMenu == 3) ; // todo 수정
+        else if (inputMenu == 4) ; // todo 삭제
+        else if (inputMenu == 5) {
+            printPostList();
+            return false;
         }
+        return true;
     }
 
     public static void setComment(int postIdx) {
